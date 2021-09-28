@@ -89,11 +89,13 @@ string Translator::translateTutWord(string inputTutWord)
     {
       string squaCheck = "";
       string adder = "";
+      string capitalCheck = "";
       squaCheck = inputTutWord.substr(i, 4);
       //take substring starting at position i and the next 3 characters as well to see if it equals 'squa'
 
-      if (squaCheck == "squa")
+      if (squaCheck == "squa" || squaCheck == "Squa")
       {
+        capitalCheck = squaCheck[0];
         //increment 4 characters to see if the character is 't' or another character
         i = i + 4;
         if (tolower(inputTutWord[i]) == 't')
@@ -101,17 +103,31 @@ string Translator::translateTutWord(string inputTutWord)
           //if the character is 't' then increment i one more time to the next character to capture the doubled character
           //store that character as it is a double character in English and add it to the result string
           i = i + 1;
-          adder = inputTutWord[i];
-          result += adder;
-          result += adder;
+          if (capitalCheck == "S")
+          {
+            result += toupper(inputTutWord[i]);
+            result += inputTutWord[i];
+          }
+          else
+          {
+            result += inputTutWord[i];
+            result += inputTutWord[i];
+          }
         }
         else
         {
           //if the letter is not 't' then there is still a double character and i is in the position of the doubled letter
           //store that character twice in the result string
-          adder = inputTutWord[i];
-          result += adder;
-          result += adder;
+          if (capitalCheck == "S")
+          {
+            result += toupper(inputTutWord[i]);
+            result += inputTutWord[i];
+          }
+          else
+          {
+            result += inputTutWord[i];
+            result += inputTutWord[i];
+          }
         }
       }
       else
